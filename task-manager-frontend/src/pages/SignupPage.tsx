@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import { toast } from "react-toastify";
+import { API_ENDPOINTS } from "../api/config";
 
 const SignupPage: React.FC = () => {
   const navigate = useNavigate();
@@ -19,7 +20,7 @@ const SignupPage: React.FC = () => {
     e.preventDefault();
 
     try {
-      await axios.post("http://localhost:5000/api/auth/signup", formData);
+      await axios.post(API_ENDPOINTS.SIGNUP, formData);
       toast.success("Signup successful! Redirecting...");
       setTimeout(() => navigate("/login"), 1500);
     } catch (error) {

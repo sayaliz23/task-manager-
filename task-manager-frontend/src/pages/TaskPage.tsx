@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { API_ENDPOINTS } from "../api/config";
 import {
   Box,
   Button,
@@ -55,7 +56,7 @@ const TaskPage: React.FC = () => {
 
   const fetchTasks = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/tasks", {
+      const res = await axios.get(API_ENDPOINTS.TASKS, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setTasks(res.data);
@@ -73,12 +74,12 @@ const TaskPage: React.FC = () => {
       const payload = { ...newTask, dueDate: newTask.dueDate || null };
       if (editingTask) {
         await axios.put(
-          `http://localhost:5000/api/tasks/${editingTask._id}`,
+          API_ENDPOINTS.TASK(editingTask._id),
           payload,
           { headers: { Authorization: `Bearer ${token}` } }
         );
       } else {
-        await axios.post("http://localhost:5000/api/tasks", payload, {
+        await axios.post(API_ENDPOINTS.TASKS, payload, {
           headers: { Authorization: `Bearer ${token}` },
         });
       }
@@ -100,7 +101,7 @@ const TaskPage: React.FC = () => {
   const handleDelete = async (id?: string) => {
     if (!id) return;
     try {
-      await axios.delete(`http://localhost:5000/api/tasks/${id}`, {
+      await axios.delete(API_ENDPOINTS.TASK(id), {
         headers: { Authorization: `Bearer ${token}` },
       });
       fetchTasks();

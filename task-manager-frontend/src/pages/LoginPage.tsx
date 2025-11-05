@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import { toast } from "react-toastify";
+import { API_ENDPOINTS } from "../api/config";
 
 const LoginPage: React.FC = () => {
   const navigate = useNavigate();
@@ -15,7 +16,7 @@ const LoginPage: React.FC = () => {
     e.preventDefault();
 
     try {
-      const res = await axios.post("http://localhost:5000/api/auth/login", formData);
+      const res = await axios.post(API_ENDPOINTS.LOGIN, formData);
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("user", JSON.stringify(res.data.user));
 
