@@ -73,6 +73,9 @@ const TaskPage: React.FC = () => {
     try {
       const payload = { ...newTask, dueDate: newTask.dueDate || null };
       if (editingTask) {
+        if (!editingTask._id) {
+          throw new Error("Task ID is missing for update.");
+        }
         await axios.put(
           API_ENDPOINTS.TASK(editingTask._id),
           payload,
